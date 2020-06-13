@@ -20,9 +20,17 @@
         <!-- Add login UI here -->
         <ul class="right">
           <li>
-
-            <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
-
+            <a href="" class="brand-logo left">SEI Student Fun Facts</a>
+            <!-- Add login UI here -->
+            <ul class="right">
+              <li>
+                <% if (user) { %>
+                <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
+                <% } else { %>
+                <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
+                <% } %>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
