@@ -3,7 +3,7 @@ var router = express.Router();
 const passport = require('passport');
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('', { title: 'Meme Review' });
+  res.render('./users/index', { title: 'Meme Review', user: req.user, name: req.query.name });
 });
 router.get('/auth/google', passport.authenticate(
   'google',
