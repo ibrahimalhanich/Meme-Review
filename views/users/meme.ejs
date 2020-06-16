@@ -3,7 +3,7 @@
 
 <head>
   <title>Meme Review Homepage</title>
-  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link href="/stylesheets/style.css" rel="stylesheet" />
   <!-- Google Icon Fonts used by Materialize -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Materialize CSS Framework -->
@@ -40,30 +40,9 @@
       </div>
     </nav>
   </div>
-  <% if (user) { %>
-  <h1>
-    Hello <%= user.name %>
-  </h1>
-
+  <h3> MEME VIEW </h3>
   <% if (memeObj) { %>
-  <div class="container px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4"> All Memes </h1>
-    <section id="meme-list">
-      <% memeObj.forEach(function (element, index, array){ %>
-      <div class="card m-1" id="meme-<%= memeObj._id %>">
-        <img src=<%= array[index].url %> class="card-img-top">
-        <div class="card-body">
-          <h5 class="card-title"><%= array[index].title%></h5>
-          <a class="btn btn-primary btn-lg" href="/memes/<%= array[index]._id%>" role="button">View</a>
-        </div>
-      </div>
-      <% }); %>
-    </section>
-  </div>
-  <% } %>
-
-  <% } else { %>
-  <h1> Please Log-In to get the full experience </h1>
+  <img src=<%= memeObj.url %> class="img-fluid" alt="Responsive image">
   <% } %>
 </body>
 

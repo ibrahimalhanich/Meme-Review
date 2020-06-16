@@ -1,13 +1,13 @@
-body {
-  /* padding: 50px; */
+/* body {
+  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+} */
 
-a {
+/* a {
   color: #00B7FF;
-}
+} */
 
-.navbar-fixed {
+/* .navbar-fixed {
   width: 100vw;
 }
 .brand-logo {
@@ -20,9 +20,28 @@ a {
 
 #search-row form {
   padding-top: 20px;
+} */
+
+div.nav-wrapper {
+  background-color: black;
+}
+.heading{
+  max-width: 700px;
+}
+#meme-list {
+  max-width: 800px;
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+img{
+  height: 300px;
+  object-fit: cover;
 }
 
-.student-name {
-  position: relative;
-  top: -5px;
+a.btn-primary{
+  background-color: black;
+  border-color: black;
 }
+

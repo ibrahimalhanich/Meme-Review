@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('./users/index', { title: 'Meme Review', user: req.user, name: req.query.name });
-});
+var usersCtrl = require('../controllers/users');
+
+/* GET users listing. */
+router.get('/', usersCtrl.index);
 router.get('/auth/google', passport.authenticate(
   'google',
   { scope: ['profile', 'email'] }
@@ -13,13 +13,13 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
   'google',
   {
-    successRedirect: '/users',
-    failureRedirect: '/users'
+    successRedirect: '/',
+    failureRedirect: '/'
   }
 ));
 
 router.get('/logout', function (req, res) {
   req.logout();
-  res.redirect('/users');
+  res.redirect('/');
 });
 module.exports = router;
