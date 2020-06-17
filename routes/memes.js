@@ -9,4 +9,6 @@ var memesCtrl = require('../controllers/memes');
 //   res.send('GET handler for /dogs route.');
 // });
 router.get('/:id', memesCtrl.viewMeme);
+router.post('/:id/add-comment', memesCtrl.createComment);
+// action="/memes/<%= memeObj._id %>/add-comment">
 module.exports = router;

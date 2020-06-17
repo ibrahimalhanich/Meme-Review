@@ -14,6 +14,7 @@
 
   <!-- JavaScript for Materialize -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- <script defer src="/javascripts/memeview.js"></script> -->
 </head>
 
 <body>
@@ -40,9 +41,24 @@
       </div>
     </nav>
   </div>
-  <h3> MEME VIEW </h3>
+  <h3> <%=memeObj._id%> </h3>
   <% if (memeObj) { %>
   <img src=<%= memeObj.url %> class="img-fluid" alt="Responsive image">
+  <% } %>
+  <form id="comment-form" class="heading px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" method="post"
+    action="/memes/<%= memeObj._id %>/add-comment">
+    <div class="input-group mb-3">
+      <input name="commentvalue" type="text" class="form-control" placeholder="Let us know what you think!" />
+      <div class="input-group-append">
+        <button memeid="<%=memeObj._id%>" id="comment-submit" type="submit"
+          class="btn btn-success black">Submit</button>
+      </div>
+    </div>
+  </form>
+  <% if(memeObj.comments.length != 0) {%>
+  <section id="comments-list">
+    <h4><%= memeObj.comments[0].content %></h4>
+  </section>
   <% } %>
 </body>
 

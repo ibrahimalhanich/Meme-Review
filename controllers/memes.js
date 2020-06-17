@@ -5,7 +5,8 @@ module.exports = {
   populateDb,
   displayDB,
   clearDB,
-  viewMeme
+  viewMeme,
+  createComment
 };
 
 function populateDb(req, res, next) {
@@ -46,6 +47,27 @@ function viewMeme(req, res, next) {
   Meme.findById(req.params.id).then(result => {
     console.log(result);
     res.render('./users/meme', { memeObj: result });
+  }).catch(err => {
+    next(err);
+  });
+}
+
+function createComment(req, res, next) {
+  req.body.user = req.user;
+  // console.log(req.body.commentvalue);
+  // console.log("create comment func");
+  // console.log(req.params.id);
+  Meme.findByIdAndUpdate(req.params.id).then(result => {
+    result.comments = [];
+    let commentSchema = {
+      "content": req.body.commentvalue,
+      "user": req.body.user
+    };
+    result.comments.push(commentSchema);
+    result.save(function (err) {
+      if (err) next(err);
+      res.render('./users/meme', { memeObj: result });
+    })
   }).catch(err => {
     next(err);
   });
