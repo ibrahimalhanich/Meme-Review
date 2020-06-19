@@ -2,8 +2,8 @@
 <html>
 
 <head>
-  <title>Meme Review Homepage</title>
-  <link rel="stylesheet" href="stylesheets/style.css" />
+  <title>Create New Meme</title>
+  <link href="/stylesheets/style.css" rel="stylesheet" />
   <!-- Google Icon Fonts used by Materialize -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Materialize CSS Framework -->
@@ -20,8 +20,7 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-        <a href="" class="brand-logo left">Meme Review</a>
-        <!-- Add login UI here -->
+        <a href="/" class="brand-logo left">Meme Review</a>
         <ul class="right">
           <% if (user) { %>
           <li><a href="/memes/addmeme" class="right">Add Meme</a> </li>
@@ -33,34 +32,23 @@
             <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
             <% } %>
           </li>
-          <!-- </ul> -->
-          <!-- </li> -->
         </ul>
       </div>
     </nav>
   </div>
-  <% if (user) { %>
-
-
-  <% if (memeObj) { %>
-  <div class="container px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4"> All Memes </h1>
-    <section id="meme-list">
-      <% memeObj.forEach(function (element, index, array){ %>
-      <div class="card m-1" id="meme-<%= memeObj._id %>">
-        <img src=<%= array[index].url %> class="card-img-top">
-        <div class="card-body">
-          <h5 class="card-title"><%= array[index].title%></h5>
-          <a class="btn btn-primary btn-lg" href="/memes/<%= array[index]._id%>" role="button">View</a>
-        </div>
+  <form id="new-meme-form" class="heading px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" method="post"
+    action="/memes/addmeme">
+    <div class="input-group mb-3">
+      <input name="memeurl" type="text" class="form-control"
+        placeholder="Link us the URL of your meme to upload it to our database!" />
+      <input name="memetitle" type="text" class="form-control" placeholder="Give your meme a title!" />
+      <div class="input-group-append">
+        <button id="meme-submit" type="submit" class="btn btn-success black">Submit</button>
       </div>
-      <% }); %>
-    </section>
-  </div>
-  <% } %>
-
-  <% } else { %>
-  <h1> Please Log-In to get the full experience </h1>
+    </div>
+  </form>
+  <% if(errorFlag === 1) { %>
+  <h2 class="heading px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center red">Invalid URL my dude</h2>
   <% } %>
 </body>
 

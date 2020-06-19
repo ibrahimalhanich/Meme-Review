@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var passport = require('passport');
+const MongoStore = require('connect-mongo')(session);
 require('dotenv').config();
 
 
@@ -26,7 +27,8 @@ app.use(cookieParser());
 app.use(session({
   secret: 'my secret!',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new MongoStore({ url: process.env.DATABASE_URL }),
 }));
 app.use(passport.initialize());
 app.use(passport.session());

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Meme Review Homepage</title>
+  <title>Review Meme</title>
   <link href="/stylesheets/style.css" rel="stylesheet" />
   <!-- Google Icon Fonts used by Materialize -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -21,13 +21,12 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-        <a href="" class="brand-logo left">Meme Review</a>
+        <a href="/" class="brand-logo left">Meme Review</a>
         <!-- Add login UI here -->
         <ul class="right">
-          <li>
-            <!-- <a href="" class="brand-logo left">SEI Student Fun Facts</a> -->
-            <!-- Add login UI here -->
-            <!-- <ul class="right"> -->
+          <% if (user) { %>
+          <li><a href="/memes/addmeme" class="right">Add Meme</a> </li>
+          <% } %>
           <li>
             <% if (user) { %>
             <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
@@ -36,15 +35,19 @@
             <% } %>
           </li>
           <!-- </ul> -->
-          </li>
+          <!-- </li> -->
         </ul>
       </div>
     </nav>
   </div>
-  <h3> <%=memeObj._id%> </h3>
+  <br>
   <% if (memeObj) { %>
-  <img src=<%= memeObj.url %> class="img-fluid" alt="Responsive image">
+  <div class="text-center">
+    <img id="images" src=<%= memeObj.url %> class="img-fluid" alt="Responsive image">
+  </div>
   <% } %>
+
+  <% if (user) {%>
   <form id="comment-form" class="heading px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" method="post"
     action="/memes/<%= memeObj._id %>/add-comment">
     <div class="input-group mb-3">
@@ -55,9 +58,27 @@
       </div>
     </div>
   </form>
+  <%}%>
+
+  <br>
+  <br>
+
   <% if(memeObj.comments.length != 0) {%>
   <section id="comments-list">
-    <h4><%= memeObj.comments[0].content %></h4>
+    <h2 class="text-center">COMMENTS</h5>
+      <% for(let y = 0; y < memeObj.comments.length ; y++){ %>
+      <div id="commentswindow" class="px-5 py-5 pt-md-5 pb-md-4 mx-auto text-center">
+        <%if(user.googleId == memeObj.comments[y].user.googleId){%>
+        <div class="d-inline">
+          <form id="delete-form" method="post"
+            action="/memes/<%= memeObj._id%>/delete-comment/<%= memeObj.comments[y]._id %>">
+            <button class="btn btn-md btn-danger black float-left">X</button>
+          </form>
+        </div>
+        <%}%>
+        <h4 class="mx-5"><%= memeObj.comments[y].user.name %> - <%= memeObj.comments[y].content %></h4>
+      </div>
+      <%}%>
   </section>
   <% } %>
 </body>

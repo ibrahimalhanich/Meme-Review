@@ -1,14 +1,4 @@
-// const axios = require('axios');
-
-// module.exports = axios.get("https://meme-api.herokuapp.com/gimme/cleanmemes/5")
-//   .then(function (response) {
-//     // console.log("fetch meme", response.data.memes);
-//     return response.data.memes;
-//   });
-// const controllerMeme = require('/Users/Ibrahim/Workspace/meme-review/controllers/memes');
-const memeModel = require('/Users/Ibrahim/Workspace/meme-review/models/meme');
-// const userModel = require('/Users/Ibrahim/Workspace/meme-review/models/user');
-
+const memeModel = require('./models/meme');
 
 const memeData = [
   {
@@ -47,28 +37,12 @@ const memeData = [
     "spoiler": false,
     "comments": []
   }
-]
+];
 
-
-// memeModel.deleteMany().then(result => {
-//   console.log(result);
-// }).catch(err => {
-//   next(err);
-// });
-
+console.log(memeData);
 memeModel.create(memeData).then(result => {
   console.log(result);
 }).catch(err => {
   next(err);
 });
 
-// {
-//   "_id": {
-//       "$oid": "5eeac4d1ecba622c4b86f9aa"
-//   },
-//   "postLink": "https://www.reddit.com/r/meirl/comments/h9eakd/meirl/",
-//   "title": "https://i.redd.it/052y2k8852551.png",
-//   "nsfw": false,
-//   "spoiler": false,
-//   "comments": [""]
-// }

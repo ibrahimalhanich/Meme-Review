@@ -45,3 +45,17 @@ a.btn-primary{
   border-color: black;
 }
 
+div #images{
+  max-height: 700px;
+  max-width: 700px;
+}
+
+div#commentswindow{
+  width: 600px;
+  background-color: gainsboro;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  padding: 5px;
+}

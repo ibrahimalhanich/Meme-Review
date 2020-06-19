@@ -1,19 +1,22 @@
 const Meme = require('../models/meme');
-const memeData = require('../api/fetchmemes');
-
+const User = require('../models/user');
+// const memeData = require('../generateMeme');
+var userArray = [];
+// var index = 0;
 module.exports = {
   populateDb,
   displayDB,
   clearDB,
   viewMeme,
-  createComment
+  createComment,
+  deleteComment,
+  createMeme,
+  createMemePage
 };
 
 function populateDb(req, res, next) {
-  // console.log("popDB", memeData);
   memeData.then(data => {
     Meme.create(data).then(result => {
-      console.log(result);
       res.render('./users/index', { memeObj: result });
     }).catch(err => {
       next(err);
@@ -25,7 +28,6 @@ function populateDb(req, res, next) {
 
 function displayDB(req, res, next) {
   Meme.find().then(result => {
-    console.log(result);
     res.render('./users/index', { memeObj: result });
   }).catch(err => {
     next(err);
@@ -35,17 +37,13 @@ function displayDB(req, res, next) {
 function clearDB(req, res, next) {
   Meme.deleteMany().then(result => {
     res.render('./users/index', { memeObj: result });
-    console.log(result);
   }).catch(err => {
     next(err);
   });
 }
 
 function viewMeme(req, res, next) {
-  console.log("VIEW MEME");
-  console.log(req.params);
-  Meme.findById(req.params.id).then(result => {
-    console.log(result);
+  Meme.findById(req.params.id).populate("comments.user").then(result => {
     res.render('./users/meme', { memeObj: result });
   }).catch(err => {
     next(err);
@@ -53,22 +51,62 @@ function viewMeme(req, res, next) {
 }
 
 function createComment(req, res, next) {
-  req.body.user = req.user;
-  // console.log(req.body.commentvalue);
-  // console.log("create comment func");
-  // console.log(req.params.id);
-  Meme.findByIdAndUpdate(req.params.id).then(result => {
-    result.comments = [];
-    let commentSchema = {
-      "content": req.body.commentvalue,
-      "user": req.body.user
-    };
+  if (!req.user) return res.redirect('/auth/google');
+  let commentSchema = {
+    "content": req.body.commentvalue,
+    "user": req.user
+  };
+  Meme.findById(req.params.id).then(result => {
     result.comments.push(commentSchema);
     result.save(function (err) {
       if (err) next(err);
-      res.render('./users/meme', { memeObj: result });
+      res.redirect(`/memes/${req.params.id}`);
     })
   }).catch(err => {
     next(err);
   });
 }
+
+function deleteComment(req, res, next) {
+  Meme.findById(req.params.memeid).then(result => {
+    result.comments.pull(req.params.commentid);
+    result.save(function (err) {
+      if (err) next(err);
+      res.redirect(`/memes/${req.params.memeid}`);
+    })
+  }).catch(err => {
+    next(err);
+  })
+}
+
+function createMemePage(req, res, next) {
+  res.render('./users/newmeme', { errorFlag: 0 });
+}
+
+function createMeme(req, res, next) {
+  let errorFlag = 0;
+  if (req.body.memeurl.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+    let memeObject = objectifyMyMeme(req.body.memeurl, req.body.memetitle);
+    Meme.create(memeObject).then(result => {
+      res.redirect('/');
+    }).catch(err => {
+      next(err);
+    });
+  } else {
+    errorFlag = 1;
+    res.render('./users/newmeme', { errorFlag: errorFlag });
+  }
+}
+
+function objectifyMyMeme(url, title) {
+  let objectifiedMeme;
+  return objectifiedMeme = {
+    "postlink": url,
+    "title": title,
+    "url": url,
+    "nsfw": false,
+    "spoiler": false,
+    "comments": []
+  };
+}
+
