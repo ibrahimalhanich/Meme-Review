@@ -16,10 +16,26 @@ Visit the [app](https://me-review-meme.herokuapp.com/) and log-in using a Google
 - passport
 - connect-mongo
 
-## Discussion on source code
+![requires_server](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/server_requires.PNG)
 
-The App uses boiler-plate express code to kick things off. I followed a guide to implement OAuthorization which basically allows users to log-in with a Google Account. It's honestly still quite difficult for me to explain how OAuthorization works but any number of guides online can help you get started with it.
+## OAuthorization
 
+The App uses boiler-plate express code to kick things off. I followed a guide to implement OAuthorization which basically allows users to log-in with a Google Account. It's honestly still quite difficult for me to explain how OAuthorization works but [this stackoverflow response](https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize) was pretty informative on what was actually going on within the passport file. 
+
+![passport_file](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/passport.PNG)
+
+By serializing and deserializing the user we are basically going through the motions of knowing what user is currently logged in and attaching it to our request in the form of `req.user`. 
+
+Of course doing this is all well and good, but without actually initializing this within the `server.js` file and mounting it to a router, we won't be making any use of the passport file's implementation. 
+
+![passport_server](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/server_passport.PNG)
+
+This boots up the passport functionality within the server before we actually make use of it when the user clicks on the log-in button, which is mounted in the home-page's routes.
+
+![index_router](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/index_router.PNG)
+
+
+## How I modelled my MongoDB Cluster
 Next, I set up my MongoDB Cluster with the following things in mind:
 
 - We'll need the USER's name, email and googleID
@@ -27,13 +43,10 @@ Next, I set up my MongoDB Cluster with the following things in mind:
 - The Meme schema will also need a comments schema embedded within it, so that each set of comments will be unique to a particular meme
 - The Comment Schema will need to hold a USER inside it, so we can display who's commented on any given post
 
-This means that our Databases are related. 
+![mememodel](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/meme_model.PNG)
+![usermodel](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/user_model.PNG)
 
-So next we have to create models for our user their comments and the memes themselves. 
-
-(PLACEHOLDER FOR MEMEMODEL.PNG)
-
-(PLACEHOLDER FOR USERMODEL.PNG) 
+Above we see that both models have an established relationship in the sense that the memeSchema references a comment which is unqiue to a specific user.
 
 
 
