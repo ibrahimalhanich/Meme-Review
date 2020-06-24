@@ -1,5 +1,3 @@
-Welcome to Meme-Review, A Full-Stack Social Media Application that let's you review memes posted by the community!
-
 #  TLDR:
 Visit the [app](https://me-review-meme.herokuapp.com/) and log-in using a Google Account. Once logged in, you can view all memes and go view an individual meme and leave a comment on it. You can also add your own meme provided it's uploaded on an image-sharing platform. 
 
