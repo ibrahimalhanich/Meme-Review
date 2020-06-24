@@ -1,6 +1,6 @@
 Welcome to Meme-Review, A Full-Stack Social Media Application that let's you review memes posted by the community!
 
-#  How to use the app:
+#  TLDR:
 Visit the [app](https://me-review-meme.herokuapp.com/) and log-in using a Google Account. Once logged in, you can view all memes and go view an individual meme and leave a comment on it. You can also add your own meme provided it's uploaded on an image-sharing platform. 
 
 #  How the app works:
@@ -46,32 +46,40 @@ Next, I set up my MongoDB Cluster with the following things in mind:
 ![mememodel](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/meme_model.PNG)
 ![usermodel](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/user_model.PNG)
 
-Above we see that both models have an established relationship in the sense that the memeSchema references a comment which is unqiue to a specific user.
+Above we see that both models have an established relationship in the sense that a unique meme references a comment posted by any given user. There isn't really a tie to a user based off of who posted the meme. In further iterations that could be an avenue to go down in terms of meme deletion. 
+
+## Using the App
+
+First of all, log-in to the page.
+
+![home_page](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/homepage.png)
+
+After you log-in the full view of the app is rendered, you can start adding newing memes up in the nav bar or view existing memes in the database. 
+
+![memes page](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/allmemes.png)
+
+Once you click on a meme you should be able to comment on it or just click on the Meme Review button in the top left of the page to go back to the home page. 
+
+![meme_page](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/makeacomment.png)
+
+If you regretted making a comment for one reason or another, you can always delete that comment and save yourself the embarrassment. 
+
+![delete_comment](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/deleteacomment.png)
+
+Now maybe a meme you saw was lame, and you really wanted to stick it to the poster... Add your own meme! All you need is a URL to a funny meme you saw and a creative title for the meme you're posting. 
+
+![add_meme](https://github.com/ibrahimalhanich/Meme-Review/blob/master/pictures/addameme.png)
+
+Great! You've mastered the art of shitposting on a pretty basic app that probably won't be used by anyone... but me! 
+
+I seriously appreciate you taking the time to read this. Hope you enjoy the app just as strongly as I banged my head into walls trying to get this thing working. 
 
 
+## Further Implementations:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Delete a meme
+- Like button
+- Auto generated memes using a subreddit API
 
 
 
